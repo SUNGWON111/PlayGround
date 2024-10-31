@@ -12,20 +12,30 @@ camelize("list-style-image") == 'listStyleImage';
 camelize("-webkit-transition") == 'WebkitTransition';
 힌트: split을 사용해 문자열을 배열로 바꾼 다음 join을 사용해 다시 합치면 됩니다.
  */
+//sol 1)
+// function camelize(str) {
+//   const strArr = [];
 
+//   for (let i = 0; i < str.length; i += 1) {
+//     if (str[i - 1] === "-") strArr.push(str[i].toUpperCase());
+//     else strArr.push(str[i]);
+//     // console.log(str[i]);
+//   }
+//   const camel = strArr.filter((ele) => ele !== "-").join("");
+
+//   console.log(camel);
+//   return camel;
+// }
+
+//sol2)
 function camelize(str) {
-  const strArr = [];
-
-  for (let i = 0; i < str.length; i += 1) {
-    if (str[i - 1] === "-") strArr.push(str[i].toUpperCase());
-    else strArr.push(str[i]);
-    // console.log(str[i]);
-  }
-  const camel = strArr.filter((ele) => ele !== "-").join("");
-
+  const camel = str
+    .split("-")
+    .map((ele, idx) => (idx === 0 ? ele : ele[0].toUpperCase() + ele.slice(1)))
+    .join("");
   console.log(camel);
-  return camel;
 }
+
 camelize("background-color"); //== "backgroundColor";
 camelize("list-style-image"); //== "listStyleImage";
 camelize("-webkit-transition"); //== "WebkitTransition";
